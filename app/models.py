@@ -6,6 +6,10 @@ class Ingredient(BaseModel):
 
     name: str = Field(min_length=1, max_length=100)
     portionGrams: int = Field(ge=0, le=3000)
+    calories: int = Field(ge=0, le=5000)
+    protein: int = Field(ge=0, le=500)
+    carbs: int = Field(ge=0, le=750)
+    fat: int = Field(ge=0, le=500)
 
 
 class NutritionEstimate(BaseModel):
@@ -24,6 +28,12 @@ class NutritionEstimate(BaseModel):
     def force_human_review(self) -> "NutritionEstimate":
         # La estimación visual nunca debe guardarse como una medición exacta.
         self.requiresReview = True
+        # Una base coherente permite recalcular el plato localmente al editar gramos.
+        if self.ingredients and sum(item.calories for item in self.ingredients) > 0:
+            self.calories = sum(item.calories for item in self.ingredients)
+            self.protein = sum(item.protein for item in self.ingredients)
+            self.carbs = sum(item.carbs for item in self.ingredients)
+            self.fat = sum(item.fat for item in self.ingredients)
         return self
 
 

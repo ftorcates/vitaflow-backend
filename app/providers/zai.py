@@ -37,7 +37,7 @@ class ZAINutritionProvider(NutritionProvider):
             ],
             "response_format": {"type": "json_object"},
             "thinking": {"type": "disabled"},
-            "max_tokens": 600,
+            "max_tokens": 900,
             "temperature": 0.1,
         }
 
@@ -93,6 +93,10 @@ class ZAINutritionProvider(NutritionProvider):
                 ingredients.append({
                     "name": str(item["name"])[:100],
                     "portionGrams": max(0, round(float(portion or 0))),
+                    "calories": max(0, round(float(item.get("calories", 0) or 0))),
+                    "protein": max(0, round(float(item.get("protein", 0) or 0))),
+                    "carbs": max(0, round(float(item.get("carbs", 0) or 0))),
+                    "fat": max(0, round(float(item.get("fat", 0) or 0))),
                 })
 
         return {

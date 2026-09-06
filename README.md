@@ -4,6 +4,10 @@ API local para analizar fotografías de comida. Reprocesa cada imagen a JPEG —
 puede usar un resultado demostrativo o visión real. El modo recomendado intenta
 GLM-4.6V-Flash y utiliza GPT-5.6 Luna como respaldo automático ante fallos técnicos.
 
+Cada ingrediente incluye gramos, calorías, proteínas, carbohidratos y grasas correspondientes a
+esa porción. La app usa esa base para recalcular el plato al corregir cantidades, sin realizar una
+segunda llamada al modelo. Los totales del servidor se normalizan con la suma de ingredientes.
+
 ## Arranque rápido sin API key
 
 ```bash

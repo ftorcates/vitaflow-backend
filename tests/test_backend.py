@@ -126,15 +126,21 @@ class BackendTest(unittest.TestCase):
             "carbs": 62,
             "fat": 14.2,
             "confidence": "0.74",
-            "ingredients": [{"name": "Arroz", "grams": 180, "extra": "ignored"}],
+            "ingredients": [{
+                "name": "Arroz", "grams": 180, "calories": 234.4,
+                "protein": 4.8, "carbs": 50.6, "fat": 0.5, "extra": "ignored"
+            }],
             "unexpected": "ignored",
         })
         estimate = AnalysisResponse(
             **normalized, provider="zai", model="test", isDemo=False
         )
-        self.assertEqual(estimate.calories, 510)
-        self.assertEqual(estimate.protein, 32)
+        self.assertEqual(estimate.calories, 234)
+        self.assertEqual(estimate.protein, 5)
+        self.assertEqual(estimate.carbs, 51)
+        self.assertEqual(estimate.fat, 0)
         self.assertEqual(estimate.ingredients[0].portionGrams, 180)
+        self.assertEqual(estimate.ingredients[0].calories, 234)
 
     def test_rejects_invalid_barcode_before_network(self) -> None:
         with self.assertRaisesRegex(ValueError, "8 y 14"):

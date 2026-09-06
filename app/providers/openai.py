@@ -35,8 +35,12 @@ class OpenAINutritionProvider(NutritionProvider):
                         "properties": {
                             "name": {"type": "string"},
                             "portionGrams": {"type": "integer"},
+                            "calories": {"type": "integer"},
+                            "protein": {"type": "integer"},
+                            "carbs": {"type": "integer"},
+                            "fat": {"type": "integer"},
                         },
-                        "required": ["name", "portionGrams"],
+                        "required": ["name", "portionGrams", "calories", "protein", "carbs", "fat"],
                     },
                 },
                 "requiresReview": {"type": "boolean"},

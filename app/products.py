@@ -46,7 +46,13 @@ async def lookup_product(barcode: str, base_url: str) -> ProductResponse:
         carbs=round(_number(nutrients.get(f"carbohydrates_{suffix}")) or 0),
         fat=round(_number(nutrients.get(f"fat_{suffix}")) or 0),
         confidence=0.9,
-        ingredients=[Ingredient(name=name[:100], portionGrams=round(serving if use_serving else 100))],
+        ingredients=[Ingredient(
+            name=name[:100], portionGrams=round(serving if use_serving else 100),
+            calories=round(_number(nutrients.get(f"energy-kcal_{suffix}")) or 0),
+            protein=round(_number(nutrients.get(f"proteins_{suffix}")) or 0),
+            carbs=round(_number(nutrients.get(f"carbohydrates_{suffix}")) or 0),
+            fat=round(_number(nutrients.get(f"fat_{suffix}")) or 0),
+        )],
         requiresReview=True,
     )
 
